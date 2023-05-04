@@ -4,7 +4,7 @@
       class="flex flex-col text-start w-2/3 p-10 bg-[#faf6fc]/30 [&>*:not(button)]:text-center"
     >
       <div class="w-52 h-52"></div>
-      <button @click="categoryCheck = false">click de</button>
+      <button @click="reset">Reset</button>
       <transition name="popup">
         <div
           v-if="!categoryCheck"
@@ -17,14 +17,19 @@
         name="load"
         enter-active-class="animate__animated animate__jackInTheBox"
         leave-active-class="animate__animated animate__hinge"
+        appear
       >
-        <div v-if="load">
-          <questions></questions>
+        <div v-if="categoryCheck && !finish">
+          <questions
+            :api="apiData"
+            :checkP="programmCheck"
+            @finish-q="showResult"
+          ></questions>
         </div>
       </transition>
       <transition name="load" appear>
-        <div v-if="load">
-          <result></result>
+        <div v-if="finish">
+          <result :data="resultX"></result>
         </div>
       </transition>
     </div>
@@ -52,21 +57,22 @@ export default {
   },
   data() {
     return {
+      apiData: [],
       randomImg: {
         url: "",
         alt: "",
         color: "",
         blurHash: "",
       },
-      apiData: [],
-
+      finish: false,
       categoryCheck: false,
-      load: false,
+      programmCheck: false,
+      resultX: "",
     };
   },
 
   methods: {
-    generateQ(data) {
+    async generateQ(data) {
       if (data.category === "random") {
         const randomArray = [
           "generalKnowledge",
@@ -80,8 +86,10 @@ export default {
       }
 
       if (data.category === "programm") {
-        this.proggramQ();
+        await this.proggramQ();
+        this.programmCheck = true;
       } else {
+        this.programmCheck = false;
         const categoryNumber = {
           sports: 21,
           politics: 24,
@@ -93,13 +101,16 @@ export default {
         }${
           data.difficulty !== "any" ? `&difficulty=${data.difficulty}` : ""
         }&type=multiple`;
-        this.mainQ(url);
+        await this.mainQ(url);
       }
+
+      this.finish = false;
+      this.categoryCheck = true;
     },
     async mainQ(url) {
       try {
         const response = await axios.get(url);
-        this.apiData = response.data;
+        this.apiData = response.data.results;
       } catch (error) {
         console.error(error);
       }
@@ -107,24 +118,14 @@ export default {
     async proggramQ() {
       try {
         const response = await axios.get(
-          "https://quizapi.io/api/v1/questions",
-          {
-            params: {
-              apiKey: "hFfuZZkOZjETopgieFOqDakqlM9SqSXMh0iAfVIA",
-              limit: 5,
-            },
-          }
+          "https://quizapi.io/api/v1/questions?apiKey=hFfuZZkOZjETopgieFOqDakqlM9SqSXMh0iAfVIA"
         );
         this.apiData = response.data;
       } catch (error) {
         console.error(error);
       }
     },
-    confrim(objectData) {
-      this.categoryCheck = !this.categoryCheck;
-      this.generateQ(objectData);
-      this.categoryCheck = true;
-    },
+
     async picImg() {
       const url =
         "https://api.unsplash.com/search/photos?query=neture&client_id=38-s608lnI47MW30SMKc4BBiq0fcuAJJeFRnWmwwsxs";
@@ -139,6 +140,17 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    async confrim(objectData) {
+      await this.generateQ(objectData);
+    },
+    showResult(result) {
+      this.resultX = result;
+      this.finish = true;
+    },
+    reset() {
+      this.finish = false;
+      this.categoryCheck = false;
     },
   },
   computed: {},

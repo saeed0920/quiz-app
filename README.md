@@ -31,9 +31,9 @@ npm run build
 ### Todo list
 
 compelect readme file
-set condition
-set animation for load img and other components
-set api and category for q-forms
-upload in github
-also create option to change catogory in app
-random img
+//set condition
+set animation for load img and other components and style all application!
+//set api and category for q-forms
+//upload in github
+//also create option to change catogory in app
+//random img
