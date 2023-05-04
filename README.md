@@ -36,3 +36,4 @@ set animation for load img and other components
 set api and category for q-forms
 upload in github
 also create option to change catogory in app
+random img

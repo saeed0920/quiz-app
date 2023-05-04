@@ -2,7 +2,7 @@
   <h3
     class="header bg-red-400 font-semibold py-2 px-4 rounded-md text-white font-sans shadow-md z-[2]"
   >
-    1 out of 3 questions answered
+    1 out of 5 questions answered
   </h3>
   <h1
     class="question text-white bg-green-500 rounded-md p-4 font-bold font-serif text-3xl mb-4 shadow-inner"
