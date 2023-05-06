@@ -1,16 +1,19 @@
 <template>
   <main
-    class="bg-gradient-to-r from-[#d9a7c7] to-[#ffdde1] grid place-items-center"
+    class="bg-gradient-to-r from-[#403B4A] to-[#E7E9BB] grid place-items-center"
   >
+    <loading></loading>
     <formQ></formQ>
   </main>
 </template>
 <script>
 import formQ from "./components/formq.vue";
+import loading from "./components/loading.vue";
 export default {
   name: "app",
   components: {
     formQ,
+    loading,
   },
 };
 </script>

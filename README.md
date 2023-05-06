@@ -31,8 +31,9 @@ npm run build
 ### Todo list
 
 compelect readme file
+!set animation for load img and other components and style all application!
+you can use component for loading and style for question component
 //set condition
-set animation for load img and other components and style all application!
 //set api and category for q-forms
 //upload in github
 //also create option to change catogory in app

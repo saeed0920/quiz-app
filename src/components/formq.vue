@@ -1,40 +1,42 @@
 <template>
   <section class="flex rounded-3xl overflow-hidden shadow-md">
     <div
-      class="flex flex-col text-start w-2/3 p-10 bg-[#faf6fc]/30 [&>*:not(button)]:text-center"
+      class="flex flex-col text-start w-[60rem] p-10 bg-[#faf6fc]/30 [&>*:not(button)]:text-center relative"
     >
-      <div class="w-52 h-52"></div>
-      <button @click="reset">Reset</button>
-      <transition name="popup">
+      <div
+        class="animate-spin bg-transparent rounded-full absolute loading-test"
+      ></div>
+      <transition
+        mode="out-in"
+        enter-active-class="animate__animated animate__flipInX"
+        leave-active-class="animate__animated animate__flipOutX"
+      >
         <div
           v-if="!categoryCheck"
-          class="pop fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-md shadow-lg"
+          class="pop bg-[#faf6ee] rounded-md shadow-md w-1/2 self-center p-4 my-auto"
         >
           <type-q @confrim="confrim"></type-q>
         </div>
-      </transition>
-      <transition
-        name="load"
-        enter-active-class="animate__animated animate__jackInTheBox"
-        leave-active-class="animate__animated animate__hinge"
-        appear
-      >
-        <div v-if="categoryCheck && !finish">
+        <div v-else-if="categoryCheck && !finish">
           <questions
             :api="apiData"
             :checkP="programmCheck"
             @finish-q="showResult"
           ></questions>
         </div>
-      </transition>
-      <transition name="load" appear>
-        <div v-if="finish">
+        <div v-else-if="finish">
           <result :data="resultX"></result>
         </div>
       </transition>
+      <button
+        class="py-2 px-4 bg-red-500 self-end rounded-lg text-2xl text-white shadow-md hover:bg-red-600 transition-all active:scale-95 active:shadow-sm border-none outline-none mt-auto"
+        @click="reset"
+      >
+        Reset
+      </button>
     </div>
     <img
-      class="bg-cover object-cover w-1/3 min-h-[48rem]"
+      class="bg-cover object-cover w-[40rem] h-[50rem]"
       :src="randomImg.url"
       :alt="randomImg.alt"
     />
@@ -53,6 +55,7 @@ export default {
   components: {
     result,
     questions,
+
     typeQ,
   },
   data() {
@@ -78,7 +81,7 @@ export default {
           "generalKnowledge",
           "history",
           "politics",
-          "sprots",
+          "sports",
           "programm",
         ];
         const randomNumber = Math.floor(Math.random() * randomArray.length);
@@ -169,5 +172,12 @@ export default {
   font-family: "Roboto";
   src: url("https://fonts.googleapis.com/css2?family=Anton&family=Hahmlet:wght@300&family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap")
     format("truetype");
+}
+
+.loading-test {
+  border: rgba(white, 0.5) 5px solid;
+  border-top: 5px solid green;
+  width: 4rem;
+  height: 4rem;
 }
 </style>
