@@ -1,38 +1,28 @@
 <template>
-  <transition leave-active-class="animate__animated animate__fadeOut">
-    <div class="loading fixed z-10 bg-[#c99a70]" v-if="!ready">
-      <span class="main">
-        <span></span>
-        <span></span>
-      </span>
+  <div class="loading fixed z-10 bg-[#c99a70]">
+    <span class="main">
+      <span></span>
+      <span></span>
+    </span>
 
-      <div class="lds-roller">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
 export default {
   name: "loading",
   data() {
-    return {
-      // !!!!!!!!!!!!!!!!!
-      ready: false,
-    };
-  },
-  mounted() {
-    setTimeout(() => {
-      this.ready = true;
-    }, 3000);
+    return {};
   },
 };
 </script>

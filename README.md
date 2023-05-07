@@ -28,7 +28,11 @@ npm run dev
 npm run build
 ```
 
-### Todo list
+### Purpese
+
+- Train with vite
+- Use api in vue.js
+- Use animation from library(css) and transition in vue.js
 
 compelect readme file
 !set animation for load img and other components and style all application!

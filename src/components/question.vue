@@ -6,7 +6,7 @@
   </h3>
   <h1
     v-html="question"
-    class="question text-white bg-green-500 rounded-md p-4 font-bold font-serif text-3xl mb-4 shadow-inner"
+    class="question text-[#433e4c] rounded-md p-4 font-bold font-serif text-3xl mb-4 min-h-[10rem]"
   ></h1>
   <div class="q flex flex-col [&>button]:text-start gap-4 my-4">
     <button
@@ -14,12 +14,15 @@
       :key="index"
       @click="next(index)"
       class="py-4 px-8 bg-white shadow-md rounded-lg transition-all hover:scale-105 hover:shadow-sm"
-      v-html="q"
-    ></button>
+    >
+      {{ shl(q) }}
+    </button>
   </div>
 </template>
 
 <script>
+// import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 export default {
   name: "question",
   emits: ["finishQ"],
@@ -36,6 +39,10 @@ export default {
     };
   },
   methods: {
+    shl(q) {
+      console.log(DOMPurify.sanitize(q));
+      return DOMPurify.sanitize(q);
+    },
     next(index) {
       // setup
       this.answer = [];
@@ -83,6 +90,11 @@ export default {
       if (this.mainNumber === 5) {
         this.$emit("finishQ", this.result);
       }
+    },
+  },
+  computed: {
+    shlq(name) {
+      return DOMPurify.sanitize(this.question);
     },
   },
   mounted() {

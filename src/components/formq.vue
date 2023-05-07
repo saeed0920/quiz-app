@@ -3,13 +3,11 @@
     <div
       class="flex flex-col text-start w-[60rem] p-10 bg-[#faf6fc]/30 [&>*:not(button)]:text-center relative"
     >
-      <div
-        class="animate-spin bg-transparent rounded-full absolute loading-test"
-      ></div>
+      <loading v-show="loadingCheck"></loading>
       <transition
         mode="out-in"
-        enter-active-class="animate__animated animate__flipInX"
-        leave-active-class="animate__animated animate__flipOutX"
+        enter-active-class="animate__animated animate__bounceIn"
+        leave-active-class="animate__animated animate__fadeOut"
       >
         <div
           v-if="!categoryCheck"
@@ -39,6 +37,8 @@
       class="bg-cover object-cover w-[40rem] h-[50rem]"
       :src="randomImg.url"
       :alt="randomImg.alt"
+      @load="imgLoad"
+      oading="lazy"
     />
   </section>
 </template>
@@ -49,13 +49,14 @@ import questions from "./question.vue";
 import result from "./result.vue";
 import typeQ from "./type.vue";
 import axios from "axios";
-
+import loading from "./compnent-loading.vue";
 export default {
   name: "formq",
+  emits: ["imgLoad"],
   components: {
     result,
     questions,
-
+    loading,
     typeQ,
   },
   data() {
@@ -71,10 +72,15 @@ export default {
       categoryCheck: false,
       programmCheck: false,
       resultX: "",
+      loadingCheck: false,
     };
   },
 
   methods: {
+    imgLoad(boolean) {
+      console.log(boolean);
+      this.$emit("imgLoad", boolean);
+    },
     async generateQ(data) {
       if (data.category === "random") {
         const randomArray = [
@@ -84,7 +90,7 @@ export default {
           "sports",
           "programm",
         ];
-        const randomNumber = Math.floor(Math.random() * randomArray.length);
+        const randomNumber = Math.floor(Math.random() * 4);
         data.category = randomArray[randomNumber];
       }
 
@@ -109,6 +115,7 @@ export default {
 
       this.finish = false;
       this.categoryCheck = true;
+      this.loadingCheck = false;
     },
     async mainQ(url) {
       try {
@@ -145,6 +152,7 @@ export default {
       }
     },
     async confrim(objectData) {
+      this.loadingCheck = true;
       await this.generateQ(objectData);
     },
     showResult(result) {
@@ -152,6 +160,7 @@ export default {
       this.finish = true;
     },
     reset() {
+      this.apiData = [];
       this.finish = false;
       this.categoryCheck = false;
     },
@@ -172,12 +181,5 @@ export default {
   font-family: "Roboto";
   src: url("https://fonts.googleapis.com/css2?family=Anton&family=Hahmlet:wght@300&family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap")
     format("truetype");
-}
-
-.loading-test {
-  border: rgba(white, 0.5) 5px solid;
-  border-top: 5px solid green;
-  width: 4rem;
-  height: 4rem;
 }
 </style>
