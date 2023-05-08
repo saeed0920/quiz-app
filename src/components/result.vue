@@ -2,37 +2,50 @@
   <h1 class="result p-4 rounded-md text-blue-700 font-[Lato] text-2xl">
     You got sample result {{ currect }}!
   </h1>
-  <p class="desc font-[Roboto] text-gray-800 font-light text-xl">
+  <p
+    class="desc font-[Roboto] text-gray-800 font-light text-xl tab:text-[#faf6fc]"
+  >
     Enter a short description here about the result :
   </p>
   <div class="flex items-center gap-4 justify-center p-4">
     <button
-      class="w-14 h-14 rounded-full hover:scale-110 transition-all"
+      class="w-14 h-14 rounded-full hover:scale-105 hover:shadow-md active:scale-95 active:shadow-inner transition-all text-white text-bold text-2xl font-serif"
       v-for="(item, index) of objectMain"
       :key="index"
       @click="show(item, index)"
       :class="{ red: !item.result, green: item.result }"
-    ></button>
+    >
+      {{ index + 1 }}
+    </button>
   </div>
-  <div v-if="check" class="fixed">
-    <span class="w-full h-full absolute z-[0]"></span>
-    <div class="box flex flex-col z-[2]">
-      <h1>{{ items.number + 1 }}</h1>
-      <h2 v-html="items.question"></h2>
-      <div v-for="(item, index) of items.answer">
-        <p
-          v-html="item"
-          :class="{
-            red: items.userIndex == index,
-            green: items.mainIndex == index,
-          }"
-        ></p>
-      </div>
+
+  <div v-if="check" class="flex flex-col">
+    <div class="box flex flex-col p-6">
+      <h1 class="text-2xl text-[#403b4a] font-light mb-4 tab:text-white">
+        Q{{ items.number + 1 }}
+      </h1>
+      <h2 class="text-[#403b4a] text-2xl font-bold mb-4 tab:text-[#faf6fc]/90">
+        {{ shl(items.question) }}
+      </h2>
+
+      <p
+        v-for="(item, index) of items.answer"
+        class="text-white font-medium font-sans text-lg px-4 py-2 rounded-md"
+        :class="{
+          red: items.userIndex == index,
+          green: items.mainIndex == index,
+        }"
+      >
+        {{ shl(item) }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import DOMPurify from "dompurify";
+import he from "he";
+
 export default {
   name: "result ",
   props: ["data"],
@@ -51,6 +64,10 @@ export default {
     };
   },
   methods: {
+    shl(q) {
+      let test = DOMPurify.sanitize(q);
+      return he.decode(test);
+    },
     show(item, index) {
       this.items.number = index;
       this.items.question = item.question;
@@ -70,9 +87,9 @@ export default {
 
 <style lang="scss" scoped>
 .green {
-  background-color: green !important;
+  background-color: #2ecc71 !important;
 }
 .red {
-  background-color: red;
+  background-color: #e74c3c;
 }
 </style>

@@ -30,15 +30,19 @@ npm run build
 
 ### Purpese
 
-- Train with vite
+- Training with vite
 - Use api in vue.js
 - Use animation from library(css) and transition in vue.js
 
-compelect readme file
-!set animation for load img and other components and style all application!
-you can use component for loading and style for question component
-//set condition
-//set api and category for q-forms
-//upload in github
-//also create option to change catogory in app
-//random img
+### Todo
+
+- [x] style for result and responsive mode
+- [x] fix bugs from qustion and result "use funtion shl => library "he" and "DOMPurify" for fix that!
+- [x] component for loading
+- [x] compelect readme file
+- [x] set animation for load img and other components
+- [x] set condition
+- [x] set api and category for q-forms
+- [x] upload in github
+- [x] also create option to change catogory in app
+- [x] random img

@@ -1,7 +1,9 @@
 <template>
-  <section class="flex rounded-3xl overflow-hidden shadow-md">
+  <section
+    class="flex rounded-3xl overflow-hidden shadow-md minDes:w-full tab:h-full tab:grid phone:rounded-none"
+  >
     <div
-      class="flex flex-col text-start w-[60rem] p-10 bg-[#faf6fc]/30 [&>*:not(button)]:text-center relative"
+      class="flex flex-col text-start w-[60rem] des:w-[50rem] minDes:w-2/3 p-10 bg-[#faf6fc]/30 [&>*:not(button)]:text-center relative tab:col-end-1 tab:w-full tab:row-end-1 tab:bg-[#403B4A]/40 tab:backdrop-blur-md"
     >
       <loading v-show="loadingCheck"></loading>
       <transition
@@ -11,18 +13,18 @@
       >
         <div
           v-if="!categoryCheck"
-          class="pop bg-[#faf6ee] rounded-md shadow-md w-1/2 self-center p-4 my-auto"
+          class="pop bg-[#faf6ee] rounded-md shadow-md w-1/2 self-center p-4 my-auto minDes:w-full"
         >
           <type-q @confrim="confrim"></type-q>
         </div>
-        <div v-else-if="categoryCheck && !finish">
+        <div class="minDes:w-full" v-else-if="categoryCheck && !finish">
           <questions
             :api="apiData"
             :checkP="programmCheck"
             @finish-q="showResult"
           ></questions>
         </div>
-        <div v-else-if="finish">
+        <div v-else-if="finish" class="minDes:w-full">
           <result :data="resultX"></result>
         </div>
       </transition>
@@ -34,11 +36,10 @@
       </button>
     </div>
     <img
-      class="bg-cover object-cover w-[40rem] h-[50rem]"
+      class="bg-cover object-cover w-[40rem] h-[50rem] des:w-[30rem] des:h-[45rem] minDes:w-1/3 tab:col-end-1 tab:w-full tab:row-end-1 tab:h-full tab:max-h-[94vh] phone:max-h-[100vh]"
       :src="randomImg.url"
       :alt="randomImg.alt"
       @load="imgLoad"
-      oading="lazy"
     />
   </section>
 </template>
@@ -78,7 +79,6 @@ export default {
 
   methods: {
     imgLoad(boolean) {
-      console.log(boolean);
       this.$emit("imgLoad", boolean);
     },
     async generateQ(data) {
