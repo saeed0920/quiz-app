@@ -46,3 +46,10 @@ npm run build
 - [x] upload in github
 - [x] also create option to change catogory in app
 - [x] random img
+
+### Idea for updating app
+
+- [] add result p for "good job" or ...
+- [] fix bugs if user clicks quecly in btns
+- [] clean code and prformance
+- [] add animation between question and answers
