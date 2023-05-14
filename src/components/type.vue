@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { mapState, mapStores } from "pinia";
+import useModelStore from "../store/modal";
 export default {
   name: "type",
   emits: ["confrim"],
@@ -63,6 +65,11 @@ export default {
         category: this.category,
         difficulty: this.difficulty,
       };
+      //  use pinia for share data
+      this.modalStore.category = objectData.category;
+      this.modalStore.difficulty = objectData.difficulty;
+
+      // call event for send data for parent component
       this.$emit("confrim", objectData);
     },
   },
@@ -70,6 +77,9 @@ export default {
     category(newValue, oldValue) {
       newValue === "programm" ? (this.sP = true) : (this.sP = false);
     },
+  },
+  computed: {
+    ...mapStores(useModelStore),
   },
 };
 </script>

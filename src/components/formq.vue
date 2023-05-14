@@ -45,6 +45,9 @@
 </template>
 
 <script>
+import { mapStores } from "pinia";
+import useModalStore from "../store/modal";
+
 import { setTransitionHooks } from "vue";
 import questions from "./question.vue";
 import result from "./result.vue";
@@ -92,6 +95,7 @@ export default {
         ];
         const randomNumber = Math.floor(Math.random() * 4);
         data.category = randomArray[randomNumber];
+        this.modalStore.category += `(${randomArray[randomNumber]})`;
       }
 
       if (data.category === "programm") {
@@ -165,7 +169,9 @@ export default {
       this.categoryCheck = false;
     },
   },
-  computed: {},
+  computed: {
+    ...mapStores(useModalStore),
+  },
   async created() {
     await this.picImg();
   },

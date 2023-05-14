@@ -1,11 +1,15 @@
 <template>
-  <h1 class="result p-4 rounded-md text-blue-700 font-[Lato] text-2xl">
+  <h1
+    class="result p-4 rounded-md text-blue-700 font-[Lato] font-bold text-2xl tab:text-gray-800"
+  >
     You got sample result {{ currect }}!
   </h1>
   <p
-    class="desc font-[Roboto] text-gray-800 font-light text-xl tab:text-[#faf6fc]"
+    class="desc font-mono text-gray-800 font-light text-xl tab:text-[#faf6fc] text-center"
   >
-    Enter a short description here about the result :
+    Category: {{ this.category }}
+    <br />
+    Difficulty: {{ this.difficulty }}
   </p>
   <div class="flex items-center gap-4 justify-center p-4">
     <button
@@ -46,6 +50,9 @@
 import DOMPurify from "dompurify";
 import he from "he";
 
+import { mapState } from "pinia";
+import useModalStore from "@/store/modal";
+
 export default {
   name: "result ",
   props: ["data"],
@@ -81,6 +88,10 @@ export default {
     for (const child of this.objectMain) {
       if (child.result) this.currect++;
     }
+  },
+  computed: {
+    ...mapState(useModalStore, ["category"]),
+    ...mapState(useModalStore, ["difficulty"]),
   },
 };
 </script>
