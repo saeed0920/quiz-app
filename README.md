@@ -50,6 +50,7 @@ npm run build
 ### Idea for updating app
 
 - [] add result p for "good job" or ...
-- [] fix bugs if user clicks quecly in btns
+- [] fix bugs if user clicks queicly in btns
 - [] clean code and prformance
 - [] add animation between question and answers
+- [x] show category and defficaulty in result components
