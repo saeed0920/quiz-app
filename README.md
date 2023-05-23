@@ -54,3 +54,7 @@ npm run build
 - [] clean code and prformance
 - [] add animation between question and answers
 - [x] show category and defficaulty in result components
+
+```
+git subtree push --prefix dist origin gh-pages2
+```
