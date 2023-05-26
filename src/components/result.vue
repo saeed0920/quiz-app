@@ -1,8 +1,9 @@
 <template>
   <h1
-    class="result p-4 rounded-md text-blue-700 font-[Lato] font-bold text-2xl tab:text-gray-800"
+    class="result p-4 rounded-md text-blue-700 font-[Lato] font-bold text-[4rem] tab:text-gray-800"
   >
-    You got sample result {{ currect }}!
+    {{ currect > 2 && currect < 4 ? "You blinding normal section!" : "😂" }}
+    {{ currect > 4 ? "Suck nerd" : "" }}
   </h1>
   <p
     class="desc font-mono text-gray-800 font-light text-xl tab:text-[#faf6fc] text-center"

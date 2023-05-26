@@ -49,8 +49,8 @@ npm run build
 
 ### Idea for updating app
 
-- [] add result p for "good job" or ...
-- [] fix bugs if user clicks queicly in btns
+- [x] add result p for "good job" or ...
+- [x] fix bugs if user clicks queicly in btns
 - [] clean code and prformance
 - [] add animation between question and answers
 - [x] show category and defficaulty in result components
@@ -59,4 +59,4 @@ npm run build
 git subtree push --prefix dist origin gh-pages2
 ```
 
-[online page :](https://saeed0920.github.io/quiz-app/)
+[online page](https://saeed0920.github.io/quiz-app/)
