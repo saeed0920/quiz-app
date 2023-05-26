@@ -31,6 +31,9 @@ export default {
 </script>
 <style lang="scss">
 html {
+  @media only screen and (max-width: 106.25em) {
+    font-size: 90%;
+  }
   @media only screen and (max-width: 62.5em) {
     font-size: 85%;
   }
